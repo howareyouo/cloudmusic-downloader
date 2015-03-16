@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+body { min-width: 100px; text-align: center; font-family: Arial }
+button { border: 1px solid #ccc; margin: 2px 0; padding: 5px 10px; width: 100%; border-radius: 3px; cursor: pointer; background: #fff; transition: all .2s ease }
+button:hover { background-color: #c6190e; color: #fff; border-color: #c62525 }
+button:active { background-color: #fff; color: #c62525; border-color: #c62525; box-shadow: 8px 8px 5px #888888 }
+#tips { padding: 3px; display: none }
+</style>
+</head>
+<body>
+  <button id="prev_page" title="Go to previous download page">Prev page</button>
+  <button id="next_page" title="Go to next download page">Next Page</button>
+  <button id="start" title="Start download current page">Start</button>
+  <label id="tips"></label>
+</body>
+<script src="popup.js"></script>
+</html>
