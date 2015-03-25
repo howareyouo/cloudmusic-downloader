@@ -15,7 +15,7 @@ function replaceParam(url, name, value) {
 		return url.replace(reg, '$1' + value + '$2');
 	else
 		return url + (url.indexOf('?') > 0 ? '&' : '?') + name + '=' + value
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 function showTips(text, clazz) {
 	var tips = $('tips')
 	tips.innerText = text
@@ -23,13 +23,11 @@ function showTips(text, clazz) {
 	tips.style.display = 'inline-block'
 }
 function downloadLinks(links) {
-	for ( var i in links) {
-		chrome.downloads.download({
-			url : links[i]
-		}, function(id) {
-			console.log('download ' + (id ? ('id : ' + id) : ('failed : ' + links[i])))
+	links.forEach(function(link) {
+		chrome.downloads.download({ url : link }, function(id) {
+			console.log('download ' + (id ? ('id : ' + id) : ('failed : ' + link)))
 		})
-	}
+	})
 }
 // http://music.163.com/api/song/detail?id=28793502&ids=[28793502]
 function ajax(method, url, success, fail){
@@ -63,8 +61,14 @@ chrome.runtime.onMessage.addListener(function(msg) {
 	})
 })
 function bin2String(array) {
-		  return String.fromCharCode.apply(String, array);
-		}
+	return String.fromCharCode.apply(String, array);
+}
+/*
+Cryptojs 用法:
+var hash = CryptoJS.MD5(b).toString()
+var words  = CryptoJS.enc.Base64.parse('SGVsbG8sIFdvcmxkIQ==');
+var base64 = CryptoJS.enc.Base64.stringify(words);
+*/
 function encrypt(dfsid) {
 	var aa='3go8&$8*3*3h0k(2)2';
 	var a=[];
@@ -86,18 +90,12 @@ function encrypt(dfsid) {
 document.addEventListener('DOMContentLoaded', function() {
 	$('start').addEventListener('click', function(e) { // 开始下载
 		/*
-		 * chrome.runtime.sendMessage({ action : "start" }, function(response) {
-		 * console.log(response.farewell); });
-		 */
+	 		chrome.runtime.sendMessage({ action : "start" }, function(response) {
+	 		console.log(response.farewell); });
+		*/
 		chrome.windows.getCurrent(function(currentWindow) {
-			chrome.tabs.query({
-			    active : true,
-			    windowId : currentWindow.id
-			}, function(activeTabs) {
-				chrome.tabs.executeScript(activeTabs[0].id, {
-				    file : 'content.js',
-				    allFrames : false
-				});
+			chrome.tabs.query({ active : true, windowId : currentWindow.id }, function(activeTabs) {
+				chrome.tabs.executeScript(activeTabs[0].id, { file : 'content.js', allFrames : false })
 			})
 		})
 	}, false)
