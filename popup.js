@@ -57,7 +57,9 @@ chrome.runtime.onMessage.addListener(function(msg) {
 		var song = songinfo.hMusic || songinfo.mMusic || songinfo.bMusic || songinfo.lMusic
 		var song_name = song.dfsId
 		var downloadUrl = 'http://m1.music.126.net/' + encrypt(song.dfsId) + '/' + song.dfsId + '.mp3'
-		window.open(downloadUrl)
+		chrome.downloads.download({ url : downloadUrl,filename:song.name+"."+song.extension }, function(id) { 
+			console.log('download '  + downloadUrl)
+		})
 	})
 })
 function bin2String(array) {
@@ -75,6 +77,7 @@ function encrypt(dfsid) {
 	for(var i=0;i<aa.length;i++){
 		a.push(aa.charCodeAt(i));
 	}
+	dfsid=dfsid+"";
 	var b = [];
 	for(var i=0;i<dfsid.length;i++){
 		b.push(dfsid.charCodeAt(i));
