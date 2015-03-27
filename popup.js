@@ -18,18 +18,15 @@ function ajax(method, url, success, fail) {
 }
 // http://m1.music.126.net/FCuiYDYfOjQggWjUtKerxw==/5934064255477633.mp3
 chrome.runtime.onMessage.addListener(function(msg) {
-	console.log(msg)
-	ajax('GET', 'http://music.163.com/api/song/detail?ids=[' + msg.ids.toString() + ']', function(data) {
+	ajax('GET', 'http://music.163.com/api/song/detail?ids=[' + msg.ids[0] + ']', function(data) {
 		data = JSON.parse(data)
-		data.songs.forEach(function(songinfo, i) {
-			var song = songinfo.hMusic || songinfo.mMusic || songinfo.bMusic || songinfo.lMusic
-			var song_name = song.dfsId
-			var downloadUrl = 'http://m1.music.126.net/' + encrypt(song.dfsId) + '/' + song.dfsId + '.mp3'
-			console.log(songinfo)
-			console.log(downloadUrl)
-			chrome.downloads.download({ url : downloadUrl, filename : song.name + '.' + song.extension }, function(id) {
-				console.log('download ' + downloadUrl)
-			})
+		var song = songinfo.hMusic || songinfo.mMusic || songinfo.bMusic || songinfo.lMusic
+		var song_name = song.dfsId
+		var downloadUrl = 'http://m1.music.126.net/' + encrypt(song.dfsId) + '/' + song.dfsId + '.mp3'
+		console.log(songinfo)
+		console.log(downloadUrl)
+		chrome.downloads.download({ url : downloadUrl, filename : song.name + '.' + song.extension }, function(id) {
+			console.log('download ' + downloadUrl)
 		})
 	})
 })
@@ -42,10 +39,7 @@ function encrypt(dfsid) {
 }
 document.addEventListener('DOMContentLoaded', function() {
 	$('start').addEventListener('click', function(e) { // 开始下载
-		/*
-		 	chrome.runtime.sendMessage({ action : "start" }, function(response) {
-		 	console.log(response.farewell); });
-		 */
+		// chrome.runtime.sendMessage({ action : "start" }, function(response) { console.log(response.farewell) }) 
 		chrome.windows.getCurrent(function(currentWindow) {
 			chrome.tabs.query({ active : true, windowId : currentWindow.id }, function(activeTabs) {
 				chrome.tabs.executeScript(activeTabs[0].id, { file : 'content.js', allFrames : false })
