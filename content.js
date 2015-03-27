@@ -12,9 +12,8 @@ if (arr && arr.length == 3) {
 		case 'album':
 		case 'playlist':
 			var elements = frames['contentFrame'].document.getElementById('m-song-list-module').querySelectorAll('tr')
-			for (var i = 0, len = elements.length; i < len; i++) {
+			for (var i = 0, len = elements.length; i < len; i++)
 				msg.ids.push(elements[i].dataset.id)
-			}
 			break
 	}
 	chrome.runtime.sendMessage(msg)
