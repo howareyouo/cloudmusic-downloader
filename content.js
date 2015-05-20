@@ -70,9 +70,7 @@ if (action_bar) {
 			var lis = document.querySelectorAll('.dropdown li');
 			[].slice.call(lis).forEach(function(li, i) {
 				li.onclick = function(){
-					songs.forEach(function(song, j){
-						window.open(song[li.title].url)
-					})
+					chrome.runtime.sendMessage({songs: songs, type: this.title})
 				}
 			})
 		})
