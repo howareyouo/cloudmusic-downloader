@@ -13,3 +13,14 @@ chrome.runtime.onInstalled.addListener(function() {
 		} ])
 	})
 })
+chrome.runtime.onMessage.addListener(function(songs) {
+	console.log(songs)
+    
+	songs.forEach(function(song, i) {
+		var song = getHighestQualitySong(song)
+		chrome.downloads.download({ url : song, filename : song.name + '.' + song.extension }, function(id) {
+			console.log(id)
+		})
+	})
+})
+var qualities = [ 'hMusic', 'mMusic', 'bMusic', 'lMusic' ]

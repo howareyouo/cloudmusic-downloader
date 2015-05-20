@@ -8,8 +8,14 @@
         ],
         "persistent":false
     },
+	"content_scripts": [{
+		"matches": [ "http://music.163.com/*" ],
+	    "css": [ "content.css" ],
+	    "js": [ "md5.js", "content.js" ],
+	    "all_frames": true
+    }],
     "page_action":{
-   		"default_icon": "img/icon.png",
+        "default_icon":"img/icon48.png",
         "default_title":"Music Downloader",
         "default_popup":"popup.html"
     },
