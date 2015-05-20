@@ -1,5 +1,5 @@
 {
-    "name":"Music Downloader",
+    "name":"163 Music Downloader",
     "version":"1.0",
     "description":"Download songs from music.163.com",
     "background":{
@@ -16,7 +16,7 @@
     }],
     "page_action":{
         "default_icon":"img/icon48.png",
-        "default_title":"Music Downloader",
+        "default_title":"163 Music Downloader",
         "default_popup":"popup.html"
     },
     "permissions":[
